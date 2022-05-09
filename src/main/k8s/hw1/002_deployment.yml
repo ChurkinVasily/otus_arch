@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hw1-deployment
+  namespace: hw-churkin
+  labels:
+    app: hw1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hw1
+  template:
+    metadata:
+      labels:
+        app: hw1
+    spec:
+      containers:
+      - name: hw1-0-0
+        image: vasilychurkin/otus_arch_hw:v1.0.1
+        ports:
+        - containerPort: 8080
+          name: web

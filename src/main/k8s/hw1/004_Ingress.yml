@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hw1-ingress
+  namespace: hw-churkin
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+#    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - host: arch.homework
+    http:
+      paths:
+        - path: /health
+          pathType: Prefix
+          backend:
+            service:
+              name: hw-svc
+              port:
+                number: 8000
+#        - path: /api($|/)(.*)
+#          pathType: Prefix
+#          backend:
+#            service:
+#              name: hw-svc
+#              port:
+#                number: 8000
