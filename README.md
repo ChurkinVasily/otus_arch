@@ -1,7 +1,7 @@
  ## Docker
  1). Собрать образ по докерфайлу (Точка в конце указывает, что докер файл брать из той же директории)
 docker build -t <dockerHub_username>/<image_name>:<tag> .   
-docker build -t vasilychurkin/otus_arch_hw:v1.0.1 . 
+docker build -t vasilychurkin/otus_arch_hw:v2.0.2 . 
 
 2). Запустить контейнер
  docker run -p 8080:8080 --name <имя контейнера> <имя образа>:<tag>
@@ -34,7 +34,8 @@ Error saving credentials: error storing credentials - err: exec: "docker-credent
 
 7) Пушить образ 
 docker login
-docker push vasilychurkin/<имя образа>:<tag>  
+docker push vasilychurkin/<имя образа>:<tag>    
+       docker push vasilychurkin/otus_arch_hw:v2.0.2
   
   
 ## MiniKube
@@ -74,17 +75,21 @@ kubectl get po (покажет какие поды запущены в **тек�
   в браузере вызвать ХОСТ:ПОРТ
 6) логи миникуба :  
   minikube logs -f    
-7) Алиас для IP - прописать в файле C:\Windows\System32\drivers\etc\host\  
+7) Алиас для IP - прописать в файле C:\Windows\System32\drivers\etc\host\    
+https://www.liquidweb.com/kb/edit-host-file-windows-10/  
 8) Вызов  через Ingress  
 
 
 #HELM
 1) установить Chocolaty https://chocolatey.org/install (зыапустить команду от в PowerShell от имени администратора)  
 2) установка Helm https://helm.sh/docs/intro/install/ 'choco install kubernetes-helm'
+3) helm list --all --all-namespaces
+4) очистка релизов https://stackoverflow.com/questions/59443834/helm-3-install-for-resouces-that-exist
+
 
 # Ingress Controller nginx
 https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/  
-1) Установка nginx-controller при помощи helm
+1) Установка nginx-controller при помощи helm (НЕ РАБОТАЕТ - ХЗ почему!!!!)
 git clone https://github.com/nginxinc/kubernetes-ingress.git --branch v2.2.0
 cd kubernetes-ingress/deployments/helm-chart  
 $ helm repo add nginx-ingress https://helm.nginx.com/stable
@@ -92,5 +97,17 @@ $ helm repo update
 $ helm install nginx nginx-ingress/nginx-ingress --namespace ingress  -- инсталлируем с именем nginx из репо nginx-ingress в неймспейс ingress   
 kubectl get po -n ingress - Проверка (должен быть запущен под nginx-ingress)
 
+2) Евгений Аристов10.05.2022 в 10:33 (Работает отлично!!!!)
+   helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx/    
+   && helm repo update   
+   && helm install nginx ingress-nginx/ingress-nginx --namespace m -f nginx-ingress.yaml
+   
+## Postgresql
+1) Подключиться к бд в терминале
+kubectl exec -it <имя пода postgres> -- psql -h localhost -U <имя юзера> --password -p 5432 <Имя бд>
+kubectl exec -it postgres-65b8fcc5fb-79jz5 -- psql -h localhost -U postgres --password -p 5432 postgres
+параметры  DB, User, Password задаются в configMap или Secret
+2) \dt - показать все таблицы
+3) IP сервиса постгрес kubectl get svc postgres -o jsonpath="{.spec.clusterIP}"
 
  

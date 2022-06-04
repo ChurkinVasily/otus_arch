@@ -5,7 +5,7 @@ metadata:
   namespace: hw
 spec:
   selector:
-    app: hw1
+    app: hw2
   ports:
   - protocol: TCP
     port: 8000

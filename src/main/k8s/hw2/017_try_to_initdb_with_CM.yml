@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: hw
+  name: init-db
+spec:
+  template:
+    metadata:
+      name:  init-db
+      labels:
+        app: init-postgresdb
+    spec:
+      containers:
+      - image: postgres:13.7
+        name: init-db
+        command: [ "bin/sh", "-c", "psql -a -f /sqlCommand.sql" ]
+        volumeMounts:
+        - name: '1233'
+          mountPath: /sqlCommand.sql
+        env:
+          - name: DB_HOST
+            value: "10.108.59.14"
+          - name: DB_DATABASE
+            value: "postgres"
+      volumes:
+        - name: '1233'
+          configMap:
+            name: hw2-initdb-sql
+      restartPolicy: OnFailure

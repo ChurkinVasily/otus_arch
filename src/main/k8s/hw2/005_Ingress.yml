@@ -1,11 +1,11 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: hw1-ingress
+  name: hw2-ingress
   namespace: hw
   annotations:
     kubernetes.io/ingress.class: "nginx"
-#    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
   - host: arch.homework
@@ -18,10 +18,10 @@ spec:
               name: hw-svc
               port:
                 number: 8000
-#        - path: /api($|/)(.*)
-#          pathType: Prefix
-#          backend:
-#            service:
-#              name: hw-svc
-#              port:
-#                number: 8000
+        - path: /api($|/)(.*)
+          pathType: Prefix
+          backend:
+            service:
+              name: hw-svc
+              port:
+                number: 8000

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hw1-deployment
-  namespace: hw-churkin
+  namespace: hw
   labels:
     app: hw1
 spec:
