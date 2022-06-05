@@ -81,10 +81,14 @@ https://www.liquidweb.com/kb/edit-host-file-windows-10/
 
 
 #HELM
-1) установить Chocolaty https://chocolatey.org/install (зыапустить команду от в PowerShell от имени администратора)  
+1) установить Chocolaty https://chocolatey.org/install (запустить команду в PowerShell от имени администратора)  
 2) установка Helm https://helm.sh/docs/intro/install/ 'choco install kubernetes-helm'
 3) helm list --all --all-namespaces
 4) очистка релизов https://stackoverflow.com/questions/59443834/helm-3-install-for-resouces-that-exist
+5) Установка хелм-чарта: helm install <имя чарта, будет соответствовать {{ .Release.Name }}> <каталог с чартом>  
+   helm install postgres helm-chart/
+6) helm list -- посмотреть все чарты  
+7) helm delete <имя чарта> -- удаление чарта (uninstall)
 
 
 # Ingress Controller nginx
@@ -105,7 +109,7 @@ kubectl get po -n ingress - Проверка (должен быть запуще
 ## Postgresql
 1) Подключиться к бд в терминале
 kubectl exec -it <имя пода postgres> -- psql -h localhost -U <имя юзера> --password -p 5432 <Имя бд>
-kubectl exec -it postgres-65b8fcc5fb-79jz5 -- psql -h localhost -U postgres --password -p 5432 postgres
+kubectl exec -it postgres-65b8fcc5fb-7nd2x -- psql -h localhost -U postgres --password -p 5432 postgres
 параметры  DB, User, Password задаются в configMap или Secret
 2) \dt - показать все таблицы
 3) IP сервиса постгрес kubectl get svc postgres -o jsonpath="{.spec.clusterIP}"

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: hw2-0-0
-        image: vasilychurkin/otus_arch_hw:v2.0.2
+        image: vasilychurkin/otus_arch_hw:v2.0.4
         ports:
         - containerPort: 8080
           name: web

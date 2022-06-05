@@ -1,0 +1,15 @@
+app:
+  name: postgres
+
+image:
+  name: postgres
+  version: 13.7
+
+replicas: 1
+
+database:
+  user: postgres
+  pass: cm9vdA==
+  db: postgres
+
+

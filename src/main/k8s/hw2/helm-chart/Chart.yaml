@@ -1,0 +1,5 @@
+apiVersion: v2
+name: hw2-db-chart
+version: 1.0.0
+description: Chart for deploy Data Base (PostgresQl)
+appVersion: "2.0"
